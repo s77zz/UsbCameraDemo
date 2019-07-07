@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+!packages/Costura.Fody.3.3.3/
+!packages/Fody.4.0.2/
+!packages/AipSdk.1.0.0/
+!packages/WPFMediaKit1.0.1.0.0/

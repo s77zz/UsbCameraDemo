@@ -1,0 +1,49 @@
+﻿<Window x:Class="UsbCameraDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UsbCameraDemo"
+        xmlns:WPFMediaKit="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        DataContext="{Binding Main,Source={StaticResource Locator}}"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip"
+        Title="{Binding Title}" Height="650" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="本机摄像头列表：" VerticalAlignment="Center"/>
+                <ComboBox MinWidth="200" ItemsSource="{Binding CameraList}" SelectedItem="{Binding CurrentDevice}" DisplayMemberPath="Name" VerticalAlignment="Center" Height="24">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <command:EventToCommand Command="{Binding SelectionChangedCmd}" PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+
+            <Separator/>
+
+            <Button Content="截图" Width="80" Height="24" Command="{Binding ScreenShotCmd}" CommandParameter="{Binding ElementName=border}"/>
+
+            <Separator/>
+
+
+        </StackPanel>
+        <Border Grid.Row="1" x:Name="border">
+            <WPFMediaKit:VideoCaptureElement  Grid.Row="1" x:Name="vce" VideoCaptureSource="{Binding VideoSource}"/>
+
+
+        </Border>
+
+
+    </Grid>
+</Window>
